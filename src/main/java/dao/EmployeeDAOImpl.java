@@ -37,16 +37,17 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 	@Override
 	public int updateEmployee(int id,long phoneNumber,String department) {
+
 		int result=0;
-		String updateQuery="UPDATE CONTACT_DETAILS SET PHONE_NUMBER=? DEPARTMENT=?";
+		String updateQuery="UPDATE EMPLOYEE_DETAILS SET PHONE_NUMBER=?, DEPARTMENT=? WHERE EMPLOYEE_ID=?";
 		
 		try(Connection connection=DatabaseConnection.getConnection();
 			PreparedStatement preparedStatement=connection.prepareStatement(updateQuery))
 		{
-			preparedStatement.setInt(1, id);
-			preparedStatement.setLong(2, phoneNumber);
-			preparedStatement.setString(3,department);
-			
+			preparedStatement.setLong(1, phoneNumber);
+			preparedStatement.setString(2,department);
+			preparedStatement.setInt(3, id);
+
 			result=preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

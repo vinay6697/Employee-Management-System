@@ -68,6 +68,7 @@ public class EmployeeManagementSystem {
 					long phoneNumber=sc.nextLong();
 					
 					System.out.println("Enter the department name");
+					sc.nextLine();
 					String department=sc.nextLine();
 					
 					int result=employeeService.updateEmployee(id,phoneNumber, department);
