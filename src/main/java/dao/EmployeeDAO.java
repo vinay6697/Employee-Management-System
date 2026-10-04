@@ -1,0 +1,29 @@
+package dao;
+
+import entity.Employee;
+
+public interface EmployeeDAO {
+
+	    int saveEmployee(Employee employee);
+
+	    int updateEmployee(int id,long phoneNumber,String department);
+//
+//	    int deleteEmployee(int employeeId);
+//
+//	    Employee findEmployeeById(int employeeId);
+//
+//	    List<Employee> findAllEmployees();
+//
+//	    List<Employee> findEmployeeByDepartment(String department);
+//
+//	    Employee findEmployeeByEmail(String email);
+//
+//	    List<Employee> findEmployeesBySalaryRange(
+//	            double minSalary,
+//	            double maxSalary);
+//
+//	    int countEmployees();
+//
+//	    void exportEmployeesToFile();
+
+}
