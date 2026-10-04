@@ -27,7 +27,7 @@ public class EmployeeService {
 	public int updateEmployee(int id,long phoneNumber,String department)
 	{
 		String phoneNo=""+phoneNumber;
-		if(phoneNo.length()<10 || phoneNo.charAt(0)<5)
+		if(phoneNo.length()<10 || phoneNo.charAt(0)<=5 || department.equals(null))
 			return 0;
 		else
 			return dao.updateEmployee(id,phoneNumber, department);
