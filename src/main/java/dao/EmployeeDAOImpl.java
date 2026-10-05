@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import entity.Employee;
 import util.DatabaseConnection;
@@ -105,6 +107,36 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				e.printStackTrace();
 			}
 		return employee;
+	}
+
+
+	@Override
+	public List<Employee> findAllEmployees() {
+		Employee employee=null;
+		List<Employee> employees=new ArrayList<>();
+		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS";
+		try(Connection connection=DatabaseConnection.getConnection();
+			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
+		{
+			ResultSet resultSet=preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+				int id=resultSet.getInt(1);
+				String name=resultSet.getString(2);
+				String email=resultSet.getString(3);
+				long phoneNumber=resultSet.getLong(4);
+				String department=resultSet.getString(5);
+				double salary=resultSet.getLong(6);
+				LocalDate date=resultSet.getDate(7).toLocalDate();
+				LocalDateTime createdDate=resultSet.getTimestamp(8).toLocalDateTime();
+				
+				employee =new Employee(id,name,email,phoneNumber,department,salary,date,createdDate);
+				employees.add(employee);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return employees;
 	}
 
 }

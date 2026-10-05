@@ -2,6 +2,7 @@ package main;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 import entity.Employee;
@@ -19,6 +20,7 @@ public class EmployeeManagementSystem {
 			System.out.println("Enter 2 to update the Employee");
 			System.out.println("Enter 3 to delete the Employee");
 			System.out.println("Enter 4 to find employee by Id");
+			System.out.println("Enter 5 to find all the employees");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -104,6 +106,15 @@ public class EmployeeManagementSystem {
 					else
 						System.out.println("Unable to fetch the employee details");
 					break;
+				}
+				case 5:{
+						List<Employee> employees=employeeService.findAllEmployees();
+						for(Employee employee:employees)
+						{
+							System.out.println(employee);
+							System.out.println("-------------------------------------");
+						}
+						break;
 				}
 				default:
 				{

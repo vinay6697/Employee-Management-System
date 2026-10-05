@@ -50,5 +50,10 @@ public class EmployeeService {
 		else
 			return dao.findEmployeeById(employee_id);
 	}
+	
+	public List<Employee> findAllEmployees()
+	{
+		return dao.findAllEmployees();
+	}
 
 }

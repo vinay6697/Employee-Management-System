@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import entity.Employee;
 
 public interface EmployeeDAO {
@@ -9,10 +11,10 @@ public interface EmployeeDAO {
 	    int updateEmployee(int id,long phoneNumber,String department);
 
 	    int deleteEmployee(int employeeId);
-//
-//	    Employee findEmployeeById(int employeeId);
-//
-//	    List<Employee> findAllEmployees();
+
+	    Employee findEmployeeById(int employeeId);
+
+	    List<Employee> findAllEmployees();
 //
 //	    List<Employee> findEmployeeByDepartment(String department);
 //
