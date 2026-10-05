@@ -3,8 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import entity.Employee;
@@ -54,4 +56,55 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 		return result;
 	}
+
+	
+	@Override
+	public int deleteEmployee(int employeeId)
+	{
+		int result=0;
+		String updateQuery="DELETE FROM EMPLOYEE_DETAILS WHERE EMPLOYEE_ID=?";
+		try(Connection connection = DatabaseConnection.getConnection();
+			PreparedStatement preparedStatment=connection.prepareStatement(updateQuery))
+		{
+			preparedStatment.setInt(1, employeeId);
+			
+			result=preparedStatment.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Employee findEmployeeById(int employeeId)
+	{
+		Employee employee=null;
+		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE EMPLOYEE_ID=?";
+		try(Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatment=connection.prepareStatement(selectQuery))
+			{
+				preparedStatment.setInt(1, employeeId);
+				
+				ResultSet resultSet=preparedStatment.executeQuery();
+				
+				while(resultSet.next())
+				{
+					int id=resultSet.getInt(1);
+					String name=resultSet.getString(2);
+					String email=resultSet.getString(3);
+					long phoneNumber=resultSet.getLong(4);
+					String department=resultSet.getString(5);
+					double salary=resultSet.getLong(6);
+					LocalDate date=resultSet.getDate(7).toLocalDate();
+					LocalDateTime createdDate=resultSet.getTimestamp(8).toLocalDateTime();
+					
+					employee =new Employee(id,name,email,phoneNumber,department,salary,date,createdDate);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return employee;
+	}
+
 }

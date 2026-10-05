@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import dao.EmployeeDAOImpl;
 import entity.Employee;
 
@@ -31,6 +33,22 @@ public class EmployeeService {
 			return 0;
 		else
 			return dao.updateEmployee(id,phoneNumber, department);
+	}
+	
+	public int deleteEmployee(int employee_id)
+	{
+		if(employee_id<0)
+			return 0;
+		else
+			return dao.deleteEmployee(employee_id);
+	}
+	
+	public Employee findEmployeeById(int employee_id)
+	{
+		if(employee_id<0)
+			return null;
+		else
+			return dao.findEmployeeById(employee_id);
 	}
 
 }

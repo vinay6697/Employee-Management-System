@@ -17,6 +17,8 @@ public class EmployeeManagementSystem {
 		do {
 			System.out.println("Enter 1 to save the Employee");
 			System.out.println("Enter 2 to update the Employee");
+			System.out.println("Enter 3 to delete the Employee");
+			System.out.println("Enter 4 to find employee by Id");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -78,7 +80,31 @@ public class EmployeeManagementSystem {
 						System.out.println("Employee details not updated");
 					break;
 				}
-				
+				case 3:
+				{
+					System.out.println("Enter the employee id");
+					int employeeId=sc.nextInt();
+					
+					int result=employeeService.deleteEmployee(employeeId);
+					if(result>0)
+						System.out.println("Employee deleted successfully");
+					else
+						System.out.println("Employee not deleted");
+					
+					break;
+				}
+				case 4:
+				{
+					System.out.println("Enter the employee id");
+					int employeeId=sc.nextInt();
+					
+					Employee employee=employeeService.findEmployeeById(employeeId);
+					if(employee!=null)
+						System.out.println(employee);
+					else
+						System.out.println("Unable to fetch the employee details");
+					break;
+				}
 				default:
 				{
 					System.out.println("Invalid input \nplease enter the valid input");

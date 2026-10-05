@@ -7,8 +7,8 @@ public interface EmployeeDAO {
 	    int saveEmployee(Employee employee);
 
 	    int updateEmployee(int id,long phoneNumber,String department);
-//
-//	    int deleteEmployee(int employeeId);
+
+	    int deleteEmployee(int employeeId);
 //
 //	    Employee findEmployeeById(int employeeId);
 //

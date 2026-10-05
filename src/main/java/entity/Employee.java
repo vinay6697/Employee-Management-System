@@ -96,4 +96,19 @@ public class Employee {
 		this.createdDate = createdDate;
 	}
 
+	@Override
+	public String toString() {
+		return 
+			"Employee Id is \t\t\t:"+employeeId+
+			"\nEmployee Name is \t\t:"+employeeName+
+			"\nEmployee Email is \t\t:"+email+
+			"\nEmployee PhoneNumber is \t:"+phoneNumber+
+			"\nEmployee Department is \t\t:"+department+
+			"\nEmployee Salary is \t\t:"+salary+
+			"\nEmployee joining date is \t:"+joiningDate+
+			"\nEmployee created Date is \t:"+createdDate;
+	}
+	
+	
+
 }
