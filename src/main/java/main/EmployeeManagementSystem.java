@@ -21,6 +21,7 @@ public class EmployeeManagementSystem {
 			System.out.println("Enter 3 to delete the Employee");
 			System.out.println("Enter 4 to find employee by Id");
 			System.out.println("Enter 5 to find all the employees");
+			System.out.println("Enter 6 to find the employee by email");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -120,6 +121,18 @@ public class EmployeeManagementSystem {
 						else
 							System.out.println("No employees found");
 						break;
+				}
+				case 6:
+				{
+					sc.nextLine();
+					System.out.println("Enter the email id");
+					String email=sc.nextLine();
+					Employee employee=employeeService.findByEmail(email);
+					if(employee!=null)
+						System.out.println(employee);
+					else
+						System.out.println("unable to find the employee");
+					break;
 				}
 				default:
 				{

@@ -18,7 +18,7 @@ public interface EmployeeDAO {
 //
 //	    List<Employee> findEmployeeByDepartment(String department);
 //
-//	    Employee findEmployeeByEmail(String email);
+	    Employee findEmployeeByEmail(String email);
 //
 //	    List<Employee> findEmployeesBySalaryRange(
 //	            double minSalary,

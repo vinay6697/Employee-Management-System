@@ -55,5 +55,13 @@ public class EmployeeService {
 	{
 		return !(dao.findAllEmployees().equals(null))?dao.findAllEmployees():null;
 	}
+	
+	public Employee findByEmail(String email)
+	{
+		if(email.isBlank() || email.equals(null) || !(email.contains("@")))
+			return null;
+		else
+			return dao.findEmployeeByEmail(email);
+	}
 
 }
