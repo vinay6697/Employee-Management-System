@@ -53,7 +53,7 @@ public class EmployeeService {
 	
 	public List<Employee> findAllEmployees()
 	{
-		return dao.findAllEmployees();
+		return !(dao.findAllEmployees().equals(null))?dao.findAllEmployees():null;
 	}
 
 }

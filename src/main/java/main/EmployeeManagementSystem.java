@@ -109,11 +109,16 @@ public class EmployeeManagementSystem {
 				}
 				case 5:{
 						List<Employee> employees=employeeService.findAllEmployees();
-						for(Employee employee:employees)
+						if(employees!=null)
 						{
-							System.out.println(employee);
-							System.out.println("-------------------------------------");
+							for(Employee employee:employees)
+							{
+								System.out.println(employee);
+								System.out.println("-------------------------------------");
+							}
 						}
+						else
+							System.out.println("No employees found");
 						break;
 				}
 				default:
