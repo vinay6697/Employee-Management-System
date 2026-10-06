@@ -20,9 +20,9 @@ public interface EmployeeDAO {
 
 	    Employee findEmployeeByEmail(String email);
 
-//	    List<Employee> findEmployeesBySalaryRange(
-//	            double minSalary,
-//	            double maxSalary);
+	    List<Employee> findEmployeesBySalaryRange(
+	            double minSalary,
+	            double maxSalary);
 //
 //	    int countEmployees();
 //

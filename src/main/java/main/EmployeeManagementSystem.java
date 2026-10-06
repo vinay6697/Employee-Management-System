@@ -23,6 +23,7 @@ public class EmployeeManagementSystem {
 			System.out.println("Enter 5 to find all the employees");
 			System.out.println("Enter 6 to find the employee by email");
 			System.out.println("Enter 7 to find the employee by department");
+			System.out.println("Enter 8 to find the employee using salary range");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -116,7 +117,6 @@ public class EmployeeManagementSystem {
 							for(Employee employee:employees)
 							{
 								System.out.println(employee);
-								System.out.println("-------------------------------------");
 							}
 						}
 						else
@@ -153,6 +153,25 @@ public class EmployeeManagementSystem {
 					{
 						System.out.println("employee not found");
 					}
+					break;
+				}
+				case 8:
+				{
+					System.out.println("Enter the min salary");
+					double minSalary=sc.nextDouble();
+					System.out.println("Enter the max salary");
+					double maxSalary=sc.nextDouble();
+					
+					List<Employee> employees=employeeService.findEmployeesBySalaryRange(minSalary, maxSalary);
+					if(employees!=null)
+					{
+						for(Employee employee:employees)
+						{
+							System.out.println(employee);
+						}
+					}
+					else
+						System.out.println("No employees found");
 					break;
 				}
 				default:

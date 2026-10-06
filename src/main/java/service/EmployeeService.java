@@ -68,5 +68,12 @@ public class EmployeeService {
 	{
 		return dao.findEmployeeByDepartment(department);
 	}
+	
+	public List<Employee> findEmployeesBySalaryRange(double minSalary, double maxSalary)
+	{
+		return dao.findEmployeesBySalaryRange(minSalary,maxSalary);
+	}
+	
+	
 
 }
