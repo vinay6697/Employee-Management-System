@@ -63,5 +63,10 @@ public class EmployeeService {
 		else
 			return dao.findEmployeeByEmail(email);
 	}
+	
+	public List<Employee> findEmployeeByDepartment(String department)
+	{
+		return dao.findEmployeeByDepartment(department);
+	}
 
 }

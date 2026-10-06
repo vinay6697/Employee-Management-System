@@ -167,4 +167,38 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 		return employee;
 	}
+
+	
+	@Override
+	public List<Employee> findEmployeeByDepartment(String employeeDepartment) {
+		Employee employee=null;
+		List<Employee> employees=new ArrayList<>();
+		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE LOWER(DEPARTMENT)=?";
+		try(Connection connection=DatabaseConnection.getConnection();
+			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery);
+				)
+		{
+			preparedStatement.setString(1, employeeDepartment.toLowerCase());
+			ResultSet resultSet=preparedStatement.executeQuery();
+			
+			while(resultSet.next())
+			{
+				int id=resultSet.getInt(1);
+				String name=resultSet.getString(2);
+				String email=resultSet.getString(3);
+				long phoneNumber=resultSet.getLong(4);
+				String department=resultSet.getString(5);
+				double salary=resultSet.getLong(6);
+				LocalDate date=resultSet.getDate(7).toLocalDate();
+				LocalDateTime createdDate=resultSet.getTimestamp(8).toLocalDateTime();
+				
+				employee =new Employee(id,name,email,phoneNumber,department,salary,date,createdDate);
+				employees.add(employee);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			
+		return employees;
+	}
 }

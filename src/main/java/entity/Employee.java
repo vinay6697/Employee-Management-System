@@ -106,7 +106,8 @@ public class Employee {
 			"\nEmployee Department is \t\t:"+department+
 			"\nEmployee Salary is \t\t:"+salary+
 			"\nEmployee joining date is \t:"+joiningDate+
-			"\nEmployee created Date is \t:"+createdDate;
+			"\nEmployee created Date is \t:"+createdDate+
+			"\n------------------------------------------------------------------";
 	}
 	
 	

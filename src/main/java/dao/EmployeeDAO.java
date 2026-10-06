@@ -15,11 +15,11 @@ public interface EmployeeDAO {
 	    Employee findEmployeeById(int employeeId);
 
 	    List<Employee> findAllEmployees();
-//
-//	    List<Employee> findEmployeeByDepartment(String department);
-//
+
+	    List<Employee> findEmployeeByDepartment(String department);
+
 	    Employee findEmployeeByEmail(String email);
-//
+
 //	    List<Employee> findEmployeesBySalaryRange(
 //	            double minSalary,
 //	            double maxSalary);
