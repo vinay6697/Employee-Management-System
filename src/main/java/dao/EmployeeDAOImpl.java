@@ -236,6 +236,24 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 		return employees;
 	}
+
 	
-	
+	@Override
+	public int countEmployees() {
+		String selectQuery="SELECT COUNT(*) FROM EMPLOYEE_DETAILS";
+		int count=0;
+		try(Connection connection=DatabaseConnection.getConnection();
+			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
+		{
+			ResultSet resultSet=preparedStatement.executeQuery();
+			while(resultSet.next())
+			{
+				count=resultSet.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

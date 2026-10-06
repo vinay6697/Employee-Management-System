@@ -24,6 +24,7 @@ public class EmployeeManagementSystem {
 			System.out.println("Enter 6 to find the employee by email");
 			System.out.println("Enter 7 to find the employee by department");
 			System.out.println("Enter 8 to find the employee using salary range");
+			System.out.println("Enter 9 to find no of employees");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -172,6 +173,16 @@ public class EmployeeManagementSystem {
 					}
 					else
 						System.out.println("No employees found");
+					break;
+				}
+				case 9:
+				{
+					int count=employeeService.countOfEmployee();
+					if(count>0)
+						System.out.println("No of employees is:"+count);
+					else
+						System.out.println("no employees found");
+					
 					break;
 				}
 				default:

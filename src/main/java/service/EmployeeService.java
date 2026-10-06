@@ -74,6 +74,11 @@ public class EmployeeService {
 		return dao.findEmployeesBySalaryRange(minSalary,maxSalary);
 	}
 	
+	public int countOfEmployee()
+	{
+		return dao.countEmployees();
+	}
+	
 	
 
 }

@@ -23,9 +23,9 @@ public interface EmployeeDAO {
 	    List<Employee> findEmployeesBySalaryRange(
 	            double minSalary,
 	            double maxSalary);
-//
-//	    int countEmployees();
-//
+
+	    int countEmployees();
+
 //	    void exportEmployeesToFile();
 
 }
