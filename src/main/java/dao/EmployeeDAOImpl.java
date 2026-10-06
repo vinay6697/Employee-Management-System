@@ -173,12 +173,12 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	public List<Employee> findEmployeeByDepartment(String employeeDepartment) {
 		Employee employee=null;
 		List<Employee> employees=new ArrayList<>();
-		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE LOWER(DEPARTMENT)=?";
+		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE TRIM(LOWER(DEPARTMENT)) LIKE ?";
 		try(Connection connection=DatabaseConnection.getConnection();
 			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery);
 				)
 		{
-			preparedStatement.setString(1, employeeDepartment.toLowerCase());
+			preparedStatement.setString(1, "%"+employeeDepartment.toLowerCase().trim()+"%");
 			ResultSet resultSet=preparedStatement.executeQuery();
 			
 			while(resultSet.next())
