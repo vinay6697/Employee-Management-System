@@ -1,9 +1,18 @@
- Employee id is			: 6
- Employee name is			:Shruthi
- Employee email is			: shruthi@gmail.com
- Employee phone is			: 9547823612
- Employee department is	: HR
- Employee salary is			: 65000.0
+ Employee id is			: 4
+ Employee name is			:Jenny
+ Employee email is			: jeeny@gmail.com
+ Employee phone is			: 8745123658
+ Employee department is	: Testing
+ Employee salary is			: 35000.0
  Employee joined date is		: 2026-10-06
- Employee created date is	:2026-10-06T19:06:54.564985
+ Employee created date is	:2026-10-06T10:03:47.279424
+----------------------------------------------------------------------------
+ Employee id is			: 5
+ Employee name is			:Anusha
+ Employee email is			: anu@gmail.com
+ Employee phone is			: 8273946524
+ Employee department is	: Testing
+ Employee salary is			: 40000.0
+ Employee joined date is		: 2026-10-06
+ Employee created date is	:2026-10-06T10:04:22.302683
 ----------------------------------------------------------------------------

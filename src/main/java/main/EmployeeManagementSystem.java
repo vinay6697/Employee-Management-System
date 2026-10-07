@@ -199,7 +199,6 @@ public class EmployeeManagementSystem {
 					System.out.println("Enter the department name");
 					sc.nextLine();
 					String name=sc.nextLine();
-					System.out.println(name);
 					employeeService.exportITDeparment(name);
 					break;
 				}

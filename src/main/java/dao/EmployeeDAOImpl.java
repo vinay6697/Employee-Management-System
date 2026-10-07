@@ -61,7 +61,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 		return result;
 	}
-
 	
 	@Override
 	public int deleteEmployee(int employeeId)
@@ -111,7 +110,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			}
 		return employee;
 	}
-
 
 	@Override
 	public List<Employee> findAllEmployees() {
@@ -170,7 +168,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 		return employee;
 	}
-
 	
 	@Override
 	public List<Employee> findEmployeeByDepartment(String employeeDepartment) {
@@ -204,7 +201,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			
 		return employees;
 	}
-
 	
 	@Override
 	public List<Employee> findEmployeesBySalaryRange(double minSalary, double maxSalary)
@@ -240,7 +236,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return employees;
 	}
 
-	
 	@Override
 	public int countEmployees() {
 		String selectQuery="SELECT COUNT(*) FROM EMPLOYEE_DETAILS";
@@ -292,11 +287,11 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 	@Override
 	public void exportEmployeesToFileByDepartment(String department) {
-		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE DEPARTMENT=?";
+		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE TRIM(LOWER(DEPARTMENT)) LIKE ?";
 		try(Connection connection=DatabaseConnection.getConnection();
 			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
 		{
-			preparedStatement.setString(1, department);
+			preparedStatement.setString(1, "%"+department.trim().toLowerCase()+"%");
 			ResultSet resultSet=preparedStatement.executeQuery();
 			File file=new File("C:\\Users\\vinay\\JDBC\\EmployeeManagementSystem\\IT_Department.txt");
 			FileWriter fileWriter=new FileWriter(file);
