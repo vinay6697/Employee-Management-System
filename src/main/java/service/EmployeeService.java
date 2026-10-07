@@ -92,6 +92,12 @@ public class EmployeeService {
 			dao.exportEmployeesToFile(employeeId);
 	}
 	
-	
+	public void exportITDeparment(String department)
+	{
+		if(department.isBlank() || department.equals(null))
+			System.out.println("Invalid department name");
+		else
+			dao.exportEmployeesToFileByDepartment(department);
+	}
 
 }

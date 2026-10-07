@@ -27,5 +27,7 @@ public interface EmployeeDAO {
 	    int countEmployees();
 
 	    void exportEmployeesToFile(int employeeId);
+	    
+	    void exportEmployeesToFileByDepartment(String department);
 
 }

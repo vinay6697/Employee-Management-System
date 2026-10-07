@@ -289,4 +289,36 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void exportEmployeesToFileByDepartment(String department) {
+		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE DEPARTMENT=?";
+		try(Connection connection=DatabaseConnection.getConnection();
+			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
+		{
+			preparedStatement.setString(1, department);
+			ResultSet resultSet=preparedStatement.executeQuery();
+			File file=new File("C:\\Users\\vinay\\JDBC\\EmployeeManagementSystem\\IT_Department.txt");
+			FileWriter fileWriter=new FileWriter(file);
+			
+			while(resultSet.next())
+			{
+				fileWriter.write(" Employee id is\t\t\t: "+resultSet.getInt(1));
+				fileWriter.write("\n Employee name is\t\t\t:"+resultSet.getString(2));
+				fileWriter.write("\n Employee email is\t\t\t: "+resultSet.getString(3));
+				fileWriter.write("\n Employee phone is\t\t\t: "+resultSet.getString(4));
+				fileWriter.write("\n Employee department is\t: "+resultSet.getString(5));
+				fileWriter.write("\n Employee salary is\t\t\t: "+resultSet.getDouble(6));
+				fileWriter.write("\n Employee joined date is\t\t: "+resultSet.getDate(7).toLocalDate());
+				fileWriter.write("\n Employee created date is\t:"+resultSet.getTimestamp(8).toLocalDateTime());
+				fileWriter.write("\n----------------------------------------------------------------------------\n");
+			}
+			fileWriter.flush();
+			System.out.println("Data stored in file successfully");
+			fileWriter.close();
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
