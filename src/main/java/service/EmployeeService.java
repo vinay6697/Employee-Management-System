@@ -7,7 +7,6 @@ import entity.Employee;
 
 public class EmployeeService {
 	EmployeeDAOImpl dao=new EmployeeDAOImpl();
-		
 	
 	public int addEmployee(Employee employee)
 	{
@@ -15,11 +14,11 @@ public class EmployeeService {
 			return 0;
 		if(employee.getSalary()<0)
 			return 0;
-		if(!(employee.getEmail().contains("@")))
+		if((!(employee.getEmail().contains("@")) || employee.getEmail().length()<10))
 			return 0;
 		if(employee.getEmployeeId()<0)
 			return 0;
-		if(employee.getDepartment().equals(null))
+		if(employee.getDepartment().equals(null) || employee.getDepartment().isBlank())
 			return 0;
 		
 		return dao.saveEmployee(employee);
@@ -66,12 +65,18 @@ public class EmployeeService {
 	
 	public List<Employee> findEmployeeByDepartment(String department)
 	{
-		return dao.findEmployeeByDepartment(department);
+		if(department.isBlank() || department.equals(null))
+			return null;
+		else
+			return dao.findEmployeeByDepartment(department);
 	}
 	
 	public List<Employee> findEmployeesBySalaryRange(double minSalary, double maxSalary)
 	{
-		return dao.findEmployeesBySalaryRange(minSalary,maxSalary);
+		if(minSalary<0 || maxSalary>10000000)
+			return null;
+		else
+			return dao.findEmployeesBySalaryRange(minSalary,maxSalary);
 	}
 	
 	public int countOfEmployee()
@@ -81,7 +86,10 @@ public class EmployeeService {
 	
 	public void exportEmployeesToFile(int employeeId)
 	{
-		dao.exportEmployeesToFile(employeeId);
+		if(employeeId<0)
+			System.out.println("employeeId is invalid");
+		else
+			dao.exportEmployeesToFile(employeeId);
 	}
 	
 	
