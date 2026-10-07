@@ -25,6 +25,7 @@ public class EmployeeManagementSystem {
 			System.out.println("Enter 7 to find the employee by department");
 			System.out.println("Enter 8 to find the employee using salary range");
 			System.out.println("Enter 9 to find no of employees");
+			System.out.println("Enter 10 to export employee details to file");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -183,6 +184,13 @@ public class EmployeeManagementSystem {
 					else
 						System.out.println("no employees found");
 					
+					break;
+				}
+				case 10:
+				{
+					System.out.println("Enter the employee id");
+					int employeeId=sc.nextInt();
+					employeeService.exportEmployeesToFile(employeeId);
 					break;
 				}
 				default:

@@ -79,6 +79,11 @@ public class EmployeeService {
 		return dao.countEmployees();
 	}
 	
+	public void exportEmployeesToFile(int employeeId)
+	{
+		dao.exportEmployeesToFile(employeeId);
+	}
+	
 	
 
 }
