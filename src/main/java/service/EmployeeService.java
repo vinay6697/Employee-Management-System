@@ -99,5 +99,10 @@ public class EmployeeService {
 		else
 			dao.exportEmployeesToFileByDepartment(department);
 	}
+	
+	public void employeeStatics()
+	{
+		dao.employeeStatics();
+	}
 
 }

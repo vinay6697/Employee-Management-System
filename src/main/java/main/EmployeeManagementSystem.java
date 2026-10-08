@@ -27,6 +27,7 @@ public class EmployeeManagementSystem {
 			System.out.println("Enter 9 to find no of employees");
 			System.out.println("Enter 10 to export employee details to file");
 			System.out.println("Enter 11 to export departmentDetails to file");
+			System.out.println("Enter 12 to find the employee statics");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -200,6 +201,11 @@ public class EmployeeManagementSystem {
 					sc.nextLine();
 					String name=sc.nextLine();
 					employeeService.exportITDeparment(name);
+					break;
+				}
+				case 12:
+				{
+					employeeService.employeeStatics();
 					break;
 				}
 				default:
