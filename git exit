@@ -1,0 +1,101 @@
+[33mcommit 0c4d37064c68a6bb6c19636d4a9b3be967961b3c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    added the employee count per department vice in employee statics
+
+[33mcommit b40503439ce016c72966d9b8ef8c7365c5783ede[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    implemented the new feature of finding the employee statics
+
+[33mcommit 246ac9c2ebf9ed8fb1652ce5bc51fc22dc707a3f[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    altered the query in export by department feature using like operator
+
+[33mcommit f7e5a212d75078426dfe1a65377acd4dd4ca7175[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    Added a new feature of exporting the data based on the department
+
+[33mcommit 81bd6d24c1a44692ca0d61ff34e804a23ae0db36[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    improved the service layer by validating the id before hitting the database
+
+[33mcommit 36ea0dabcdc4a82f04ca1ae032dca4be09cc9ac2[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    implemented the new feature of fetching and storing the employee details in the text file
+
+[33mcommit d290fabd14165431ec6cf83d807b0609cf5b0a43[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    introduced a new feature of find the no of employees
+
+[33mcommit 0e8fcdf18eace194d0092da1fd87b6147aad6bf8[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    added a new feature of finding the employee based on the salary range
+
+[33mcommit 97adc02a6accf4482f3f6ac5986b0489bcca8fd8[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    used the like operator to fetch the details based on partial input and irrespetive of case
+
+[33mcommit 0a718db3314eb23bdfdf7b5daef2480000a0c183[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    implemented the new feature of find the employees based on the department name
+
+[33mcommit eb1f1a7e87448cbec5066151972ac8aae57404d0[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    implemented the new feature of finding the employee using their email id
+
+[33mcommit 6c9b4577ab024ecb0960ae66a212cece590eb6ba[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    provided the buisness logic in service layer
+
+[33mcommit bf317afefc955af18a439f96ce384da01b56b4d6[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    added a new feature by finding all the employees present in the database
+
+[33mcommit b7f6a0a5c8d35375159e19e489ce14a4a8db2ce2[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    Added the findby feature using the primary key Employee id
+
+[33mcommit cd36fdc74ff8a32a244e9873fbe620af043b6b88[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    added logic like searching the lenght of phonenumber and deparment before updating
+
+[33mcommit b9018e9f3db9515ffed30e5446b1f02cb4d10ff2[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    Implemeted the new feature of updating the details of the employee
+
+[33mcommit 579af6e2099c565aac5c38c6ce35d47c5c5b0ec7[m
+Author: vinaykumar <vinaykumarraj6697@gmail.com>
+Commit: vinaykumar <vinaykumarraj6697@gmail.com>
+
+    Created the new Employee Management System and implemented the save feature

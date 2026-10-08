@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Connection;
 import java.util.List;
 
 import entity.Employee;
@@ -31,5 +32,14 @@ public interface EmployeeDAO {
 	    void exportEmployeesToFileByDepartment(String department);
 	    
 	    void employeeStatics();
+	    
+	    int getEmployeeCount(Connection connection);
+
+	    double getHighestSalary(Connection connection);
+
+	    double getLowestSalary(Connection connection);
+
+	    double getAverageSalary(Connection connection);
+
 
 }
