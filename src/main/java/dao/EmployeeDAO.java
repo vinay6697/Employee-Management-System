@@ -33,13 +33,5 @@ public interface EmployeeDAO {
 	    
 	    void employeeStatics();
 	    
-	    int getEmployeeCount(Connection connection);
-
-	    double getHighestSalary(Connection connection);
-
-	    double getLowestSalary(Connection connection);
-
-	    double getAverageSalary(Connection connection);
-
 	    int getEmployeeCountByDepartment(Connection connection);
 }

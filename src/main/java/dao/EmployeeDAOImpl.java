@@ -320,94 +320,28 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	
 	@Override
 	public void employeeStatics() {
-		try(Connection connection=DatabaseConnection.getConnection())
+		String query="SELECT COUNT(*),MAX(salary),MIN(salary),AVG(salary)FROM employee_details";
+		try(Connection connection=DatabaseConnection.getConnection();
+			PreparedStatement preparedStatement=connection.prepareStatement(query)
+			)
 		{
-			int employeeCount=getEmployeeCount(connection);
-			double maxSalary=getHighestSalary(connection);
-			double minSalary=getLowestSalary(connection);
-			double avgSalary=getAverageSalary(connection);
+			ResultSet resultSet=preparedStatement.executeQuery();
 			
-			
-			System.out.println("Total employees are\t:"+employeeCount);
-			System.out.println("Highest salary is\t:"+maxSalary);
-			System.out.println("Lowest salary is\t:"+minSalary);
-			System.out.println("Average salary is\t:"+avgSalary);
+			while(resultSet.next())
+			{
+				System.out.println("Employees count is \t\t:"+resultSet.getInt(1));
+				System.out.println("Employees highest salary is \t:"+resultSet.getDouble(2));
+				System.out.println("Employees lowest salary is \t:"+resultSet.getDouble(3));
+				System.out.println("Employees average salary is \t:"+resultSet.getDouble(4));
+			}
 			
 			getEmployeeCountByDepartment(connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
-	@Override
-	public int getEmployeeCount(Connection connection) {
-		int count=0;
-		String employeeCount="SELECT COUNT(*) FROM EMPLOYEE_DETAILS";
 
-		try(PreparedStatement preparedStatement=connection.prepareStatement(employeeCount))
-		{
-			ResultSet resultSet=preparedStatement.executeQuery();
-			while(resultSet.next())
-			{
-				count=resultSet.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return count;
-	}
-
-	@Override
-	public double getHighestSalary(Connection connection) {
-		double maxSalary=0;
-		String maxSalQuery="SELECT MAX(SALARY) FROM EMPLOYEE_DETAILS";
-		try(PreparedStatement preparedStatement=connection.prepareStatement(maxSalQuery))
-		{
-			ResultSet resultSet=preparedStatement.executeQuery();
-			while(resultSet.next())
-			{
-				maxSalary=resultSet.getDouble(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return maxSalary;
-	}
-
-	@Override
-	public double getLowestSalary(Connection connection) {
-		double minSalary=0;
-		String minSalaryQuery="SELECT MIN(SALARY) FROM EMPLOYEE_DETAILS";
-		try(PreparedStatement preparedStatement=connection.prepareStatement(minSalaryQuery))
-		{
-			ResultSet resultSet=preparedStatement.executeQuery();
-			while(resultSet.next())
-			{
-				minSalary=resultSet.getDouble(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return minSalary;
-	}
-
-	@Override
-	public double getAverageSalary(Connection connection) {
-		double avgSalary=0;
-		String avgSalaryQuery="SELECT AVG(SALARY) FROM EMPLOYEE_DETAILS";
-		try(PreparedStatement preparedStatement=connection.prepareStatement(avgSalaryQuery))
-		{
-			ResultSet resultSet=preparedStatement.executeQuery();
-			while(resultSet.next())
-			{
-				avgSalary=resultSet.getDouble(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return avgSalary;
-	}
 	
 	public int getEmployeeCountByDepartment(Connection connection) {
 		String selectQuery="SELECT DEPARTMENT,COUNT(*) FROM EMPLOYEE_DETAILS GROUP BY DEPARTMENT";
