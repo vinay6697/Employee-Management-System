@@ -327,10 +327,13 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			double minSalary=getLowestSalary(connection);
 			double avgSalary=getAverageSalary(connection);
 			
+			
 			System.out.println("Total employees are\t:"+employeeCount);
 			System.out.println("Highest salary is\t:"+maxSalary);
 			System.out.println("Lowest salary is\t:"+minSalary);
 			System.out.println("Average salary is\t:"+avgSalary);
+			
+			getEmployeeCountByDepartment(connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -406,5 +409,28 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return avgSalary;
 	}
 	
+	public int getEmployeeCountByDepartment(Connection connection) {
+		String selectQuery="SELECT DEPARTMENT,COUNT(*) FROM EMPLOYEE_DETAILS GROUP BY DEPARTMENT";
+		try(PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
+		{
+			ResultSet resultSet=preparedStatement.executeQuery();
+		
+			while(resultSet.next())
+		    {
+		        String department =
+		                resultSet.getString(1);
+
+		        int count =
+		                resultSet.getInt(2);
+
+		        System.out.println(
+		                "Department : " + department +
+		                " \t--> Employees : " + count);
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	
 }

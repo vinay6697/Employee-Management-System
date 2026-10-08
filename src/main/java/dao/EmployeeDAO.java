@@ -41,5 +41,5 @@ public interface EmployeeDAO {
 
 	    double getAverageSalary(Connection connection);
 
-
+	    int getEmployeeCountByDepartment(Connection connection);
 }
