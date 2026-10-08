@@ -324,11 +324,14 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		String maxSalary="SELECT MAX(SALARY) FROM EMPLOYEE_DETAILS";
 		String minSalary="SELECT MIN(SALARY) FROM EMPLOYEE_DETAILS";
 		String avgSalary="SELECT AVG(SALARY) FROM EMPLOYEE_DETAILS";
+		String empDepartmentCount="SELECT COUNT(*) FROM EMPLOYEE_DETAILS WHERE DEPARTMENT=?";
 		try(Connection connection=DatabaseConnection.getConnection();
 			PreparedStatement preparedStatement1=connection.prepareStatement(employeeCount);
 			PreparedStatement preparedStatement2=connection.prepareStatement(maxSalary);
 			PreparedStatement preparedStatement3=connection.prepareStatement(minSalary);
 			PreparedStatement preparedStatement4=connection.prepareStatement(avgSalary);
+			PreparedStatement preparedStatement5=connection.prepareStatement(empDepartmentCount);
+			
 			)
 		{
 			int count=0;
@@ -366,6 +369,39 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				avgSal+=resultSet4.getDouble(1);
 			}
 			System.out.println("avg sal:"+avgSal);
+			
+			//for finding the employeecount by department for dev
+			preparedStatement5.setString(1, "Development");
+			ResultSet resultSet5=preparedStatement5.executeQuery();
+			
+			int devCount=0;
+			while(resultSet5.next())
+			{
+				devCount+=resultSet5.getInt(1);
+			}
+			System.out.println("development employee count:"+devCount);
+			
+			//for finding the employeecount by department for testing
+			preparedStatement5.setString(1, "Testing");
+			resultSet5=preparedStatement5.executeQuery();
+			
+			int testingCount=0;
+			while(resultSet5.next())
+			{
+				testingCount+=resultSet5.getInt(1);
+			}
+			System.out.println("Testing employee count:"+testingCount);
+			
+			//for finding the employeecount by department for HR
+			preparedStatement5.setString(1, "HR");
+			resultSet5=preparedStatement5.executeQuery();
+			
+			int hrCount=0;
+			while(resultSet5.next())
+			{
+				hrCount+=resultSet5.getInt(1);
+			}
+			System.out.println("HR employee count:"+hrCount);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
