@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import entity.Employee;
 
@@ -33,5 +34,5 @@ public interface EmployeeDAO {
 	    
 	    void employeeStatics();
 	    
-	    int getEmployeeCountByDepartment(Connection connection);
+	    Map<String ,Integer> getEmployeeCountByDepartment(Connection connection);
 }

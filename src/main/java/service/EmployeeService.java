@@ -1,9 +1,11 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.EmployeeDAOImpl;
 import entity.Employee;
+import util.DatabaseConnection;
 
 public class EmployeeService {
 	EmployeeDAOImpl dao=new EmployeeDAOImpl();
@@ -103,6 +105,11 @@ public class EmployeeService {
 	public void employeeStatics()
 	{
 		dao.employeeStatics();
+	}
+	
+	public Map<String,Integer> getEmployeeCountByDepartment()
+	{
+		return dao.getEmployeeCountByDepartment(DatabaseConnection.getConnection());
 	}
 
 }

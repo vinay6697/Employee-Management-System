@@ -3,6 +3,7 @@ package main;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import entity.Employee;
@@ -28,6 +29,7 @@ public class EmployeeManagementSystem {
 			System.out.println("Enter 10 to export employee details to file");
 			System.out.println("Enter 11 to export departmentDetails to file");
 			System.out.println("Enter 12 to find the employee statics");
+			System.out.println("Enter 13 to find the employee statics");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -206,6 +208,16 @@ public class EmployeeManagementSystem {
 				case 12:
 				{
 					employeeService.employeeStatics();
+					break;
+				}
+				case 13:
+				{
+					Map<String ,Integer> employees=employeeService.getEmployeeCountByDepartment();
+					
+					for(String department : employees.keySet())
+					{
+						 System.out.printf("%-25s : %d%n",department,employees.get(department));
+					}
 					break;
 				}
 				default:

@@ -12,7 +12,9 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import entity.Employee;
 import util.DatabaseConnection;
@@ -335,15 +337,13 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 				System.out.println("Employees average salary is \t:"+resultSet.getDouble(4));
 			}
 			
-			getEmployeeCountByDepartment(connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-
-	
-	public int getEmployeeCountByDepartment(Connection connection) {
+	public Map<String ,Integer> getEmployeeCountByDepartment(Connection connection) {
+		Map<String ,Integer> map=new HashMap<>();
 		String selectQuery="SELECT DEPARTMENT,COUNT(*) FROM EMPLOYEE_DETAILS GROUP BY DEPARTMENT";
 		try(PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
 		{
@@ -351,20 +351,12 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		
 			while(resultSet.next())
 		    {
-		        String department =
-		                resultSet.getString(1);
-
-		        int count =
-		                resultSet.getInt(2);
-
-		        System.out.println(
-		                "Department : " + department +
-		                " \t--> Employees : " + count);
+		        map.put(resultSet.getString(1), resultSet.getInt(2));
 		    }
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return map;
 	}
-	
 }
