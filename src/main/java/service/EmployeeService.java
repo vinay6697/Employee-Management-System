@@ -102,9 +102,9 @@ public class EmployeeService {
 			dao.exportEmployeesToFileByDepartment(department);
 	}
 	
-	public void employeeStatics()
+	public Map<String,Double> employeeStatics()
 	{
-		dao.employeeStatics();
+		return dao.employeeStatics();
 	}
 	
 	public Map<String,Integer> getEmployeeCountByDepartment()

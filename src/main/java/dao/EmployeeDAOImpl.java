@@ -321,25 +321,35 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
 	
 	@Override
-	public void employeeStatics() {
+	public Map<String, Double> employeeStatics() {
+		Map<String ,Double> map=new HashMap<>();
 		String query="SELECT COUNT(*),MAX(salary),MIN(salary),AVG(salary)FROM employee_details";
 		try(Connection connection=DatabaseConnection.getConnection();
 			PreparedStatement preparedStatement=connection.prepareStatement(query)
 			)
 		{
+			int employeeCount=0;
+			double maxSalary=0;
+			double minSalary=0;
+			double avgSalary=0;
 			ResultSet resultSet=preparedStatement.executeQuery();
 			
 			while(resultSet.next())
 			{
-				System.out.println("Employees count is \t\t:"+resultSet.getInt(1));
-				System.out.println("Employees highest salary is \t:"+resultSet.getDouble(2));
-				System.out.println("Employees lowest salary is \t:"+resultSet.getDouble(3));
-				System.out.println("Employees average salary is \t:"+resultSet.getDouble(4));
+				employeeCount=resultSet.getInt(1);
+				maxSalary=resultSet.getDouble(2);
+				minSalary=resultSet.getDouble(3);
+				avgSalary=resultSet.getDouble(4);
 			}
+			map.put("employee count", (double) employeeCount);
+			map.put("maxSalary", maxSalary);
+			map.put("minSalary", minSalary);
+			map.put("avgSalary", avgSalary);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return map;
 	}
 
 	public Map<String ,Integer> getEmployeeCountByDepartment(Connection connection) {

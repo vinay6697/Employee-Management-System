@@ -207,7 +207,11 @@ public class EmployeeManagementSystem {
 				}
 				case 12:
 				{
-					employeeService.employeeStatics();
+					Map<String ,Double> employees=employeeService.employeeStatics();
+					for(String employee:employees.keySet())
+					{
+						System.out.println(employee+"\t"+employees.get(employee));
+					}
 					break;
 				}
 				case 13:

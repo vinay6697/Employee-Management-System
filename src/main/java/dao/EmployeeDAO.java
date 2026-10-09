@@ -32,7 +32,7 @@ public interface EmployeeDAO {
 	    
 	    void exportEmployeesToFileByDepartment(String department);
 	    
-	    void employeeStatics();
+	    Map<String ,Double> employeeStatics();
 	    
 	    Map<String ,Integer> getEmployeeCountByDepartment(Connection connection);
 }
