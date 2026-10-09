@@ -35,4 +35,6 @@ public interface EmployeeDAO {
 	    Map<String ,Double> employeeStatics();
 	    
 	    Map<String ,Integer> getEmployeeCountByDepartment(Connection connection);
+	    
+	    int saveEmployeesBatch(List<Employee> employees);
 }

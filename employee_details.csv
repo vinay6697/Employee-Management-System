@@ -1,0 +1,4 @@
+employee_id,employee_name,email,phone_number,department,salary,joining_date,created_date
+7,Rahul,rahul@gmail.com,9876543210,HR,45000.00,2025-01-15,2026-10-09 09:30:00
+8,Priya,priya@gmail.com,9876543211,Testing,40000.00,2025-02-10,2026-10-09 09:35:00
+9,Arun,arun@gmail.com,9876543212,Development,55000.00,2025-03-20,2026-10-09 09:40:00

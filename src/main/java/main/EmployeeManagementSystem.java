@@ -29,7 +29,8 @@ public class EmployeeManagementSystem {
 			System.out.println("Enter 10 to export employee details to file");
 			System.out.println("Enter 11 to export departmentDetails to file");
 			System.out.println("Enter 12 to find the employee statics");
-			System.out.println("Enter 13 to find the employee statics");
+			System.out.println("Enter 13 to find the employees count by department");
+			System.out.println("Enter 14 to import employees from csv file");
 			int choice=sc.nextInt();
 			
 			switch(choice)
@@ -221,6 +222,20 @@ public class EmployeeManagementSystem {
 					for(String department : employees.keySet())
 					{
 						 System.out.printf("%-25s : %d%n",department,employees.get(department));
+					}
+					break;
+				}
+				case 14:
+				{
+					String filePath = "C:\\Users\\vinay\\JDBC\\EmployeeManagementSystem\\employee_details.csv";
+
+					try {
+					    int count = employeeService.importEmployeesFromCsv(filePath);
+
+					    System.out.println(count + " employees imported successfully.");
+
+					} catch (Exception e) {
+					    System.out.println("Import failed: " + e.getMessage());
 					}
 					break;
 				}

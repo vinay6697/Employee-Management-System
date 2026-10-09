@@ -369,4 +369,53 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 		return map;
 	}
+	
+	@Override
+	public int saveEmployeesBatch(List<Employee> employees) {
+
+		String insertQuery = """
+			    INSERT INTO EMPLOYEE_DETAILS
+			    (employee_id, employee_name, email, phone_number,
+			     department, salary, joining_date, created_date)
+			    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+			    """;
+
+	    try (Connection connection = DatabaseConnection.getConnection();
+	         PreparedStatement ps = connection.prepareStatement(insertQuery)) {
+
+	        connection.setAutoCommit(false);
+
+	        try {
+	            for (Employee employee : employees) {
+
+	                ps.setInt(1, employee.getEmployeeId());
+	                ps.setString(2, employee.getEmployeeName());
+	                ps.setString(3, employee.getEmail());
+	                ps.setLong(4, employee.getPhoneNumber());
+	                ps.setString(5, employee.getDepartment());
+	                ps.setDouble(6, employee.getSalary());
+
+	                ps.setDate(7,
+	                    java.sql.Date.valueOf(employee.getJoiningDate()));
+
+	                ps.setTimestamp(8,
+	                    java.sql.Timestamp.valueOf(employee.getCreatedDate()));
+
+	                ps.addBatch();
+	            }
+
+	            ps.executeBatch();
+	            connection.commit();
+
+	            return employees.size();
+
+	        } catch (SQLException e) {
+	            connection.rollback();
+	            throw e;
+	        }
+
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Failed to import employees", e);
+	    }
+	}
 }

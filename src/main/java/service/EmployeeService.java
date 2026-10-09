@@ -1,5 +1,13 @@
 package service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -110,6 +118,68 @@ public class EmployeeService {
 	public Map<String,Integer> getEmployeeCountByDepartment()
 	{
 		return dao.getEmployeeCountByDepartment(DatabaseConnection.getConnection());
+	}
+	
+	//importing the employees from csv file
+	public int importEmployeesFromCsv(String filePath)
+	        throws IOException {
+
+	    List<Employee> employees = new ArrayList<>();
+
+	    DateTimeFormatter formatter =
+	        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+	    try (BufferedReader reader =
+	             Files.newBufferedReader(Path.of(filePath))) {
+
+	        String line;
+	        int lineNumber = 0;
+
+	        while ((line = reader.readLine()) != null) {
+	            lineNumber++;
+
+	            // Skip the CSV header
+	            if (lineNumber == 1) {
+	                continue;
+	            }
+
+	            if (line.isBlank()) {
+	                continue;
+	            }
+
+	            String[] data = line.split(",", -1);
+
+	            if (data.length != 8) {
+	                throw new IllegalArgumentException(
+	                    "Invalid number of columns at line " + lineNumber);
+	            }
+
+	            try {
+	                Employee employee = new Employee(
+	                    Integer.parseInt(data[0].trim()),
+	                    data[1].trim(),
+	                    data[2].trim(),
+	                    Long.parseLong(data[3].trim()),
+	                    data[4].trim(),
+	                    Double.parseDouble(data[5].trim()),
+	                    LocalDate.parse(data[6].trim()),
+	                    LocalDateTime.parse(data[7].trim(), formatter)
+	                );
+
+	                employees.add(employee);
+
+	            } catch (RuntimeException e) {
+	                throw new IllegalArgumentException(
+	                    "Invalid employee data at line " + lineNumber, e);
+	            }
+	        }
+	    }
+
+	    if (employees.isEmpty()) {
+	        return 0;
+	    }
+
+	    return dao.saveEmployeesBatch(employees);
 	}
 
 }
