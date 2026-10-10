@@ -4,21 +4,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Employee {
-	
+
 	private int employeeId;
-    private String employeeName;
-    private String email;
-    private long phoneNumber;
-    private String department;
-    private double salary;
-    private LocalDate joiningDate;
-    private LocalDateTime createdDate;
-    
-    //constructor with no arguments
+	private String employeeName;
+	private String email;
+	private long phoneNumber;
+	private String department;
+	private double salary;
+	private LocalDate joiningDate;
+	private LocalDateTime createdDate;
+
+	// constructor with no arguments
 	public Employee() {
 	}
 
-	//parameterized constructors 
+	// parameterized constructors
 	public Employee(int employeeId, String employeeName, String email, long phoneNumber, String department,
 			double salary, LocalDate joiningDate, LocalDateTime createdDate) {
 		this.employeeId = employeeId;
@@ -31,7 +31,7 @@ public class Employee {
 		this.createdDate = createdDate;
 	}
 
-	//Getters and Setters
+	// Getters and Setters
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -98,18 +98,11 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return 
-			"Employee Id is \t\t\t:"+employeeId+
-			"\nEmployee Name is \t\t:"+employeeName+
-			"\nEmployee Email is \t\t:"+email+
-			"\nEmployee PhoneNumber is \t:"+phoneNumber+
-			"\nEmployee Department is \t\t:"+department+
-			"\nEmployee Salary is \t\t:"+salary+
-			"\nEmployee joining date is \t:"+joiningDate+
-			"\nEmployee created Date is \t:"+createdDate+
-			"\n------------------------------------------------------------------";
+		return "Employee Id is \t\t\t:" + employeeId + "\nEmployee Name is \t\t:" + employeeName
+				+ "\nEmployee Email is \t\t:" + email + "\nEmployee PhoneNumber is \t:" + phoneNumber
+				+ "\nEmployee Department is \t\t:" + department + "\nEmployee Salary is \t\t:" + salary
+				+ "\nEmployee joining date is \t:" + joiningDate + "\nEmployee created Date is \t:" + createdDate
+				+ "\n------------------------------------------------------------------";
 	}
-	
-	
 
 }

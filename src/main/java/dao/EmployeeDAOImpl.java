@@ -19,121 +19,127 @@ import java.util.Map;
 import entity.Employee;
 import util.DatabaseConnection;
 
-public class EmployeeDAOImpl implements EmployeeDAO{
+public class EmployeeDAOImpl implements EmployeeDAO {
 
+	/*
+	 * to save the employee into the database
+	 */
 	@Override
 	public int saveEmployee(Employee employee) {
-		int result=0;
-		String insertQuery="INSERT INTO EMPLOYEE_DETAILS VALUES(?,?,?,?,?,?,?,?)";
-		
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(insertQuery))
-		{
+		int result = 0;
+		String insertQuery = "INSERT INTO EMPLOYEE_DETAILS VALUES(?,?,?,?,?,?,?,?)";
+
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 			preparedStatement.setInt(1, employee.getEmployeeId());
 			preparedStatement.setString(2, employee.getEmployeeName());
 			preparedStatement.setString(3, employee.getEmail());
 			preparedStatement.setLong(4, employee.getPhoneNumber());
-			preparedStatement.setString(5,employee.getDepartment());
+			preparedStatement.setString(5, employee.getDepartment());
 			preparedStatement.setDouble(6, employee.getSalary());
 			preparedStatement.setDate(7, Date.valueOf(employee.getJoiningDate()));
 			preparedStatement.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
-			result=preparedStatement.executeUpdate();
+			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
 
+	/*
+	 * to update the employee details present in the database using the id
+	 */
 	@Override
-	public int updateEmployee(int id,long phoneNumber,String department) {
+	public int updateEmployee(int id, long phoneNumber, String department) {
 
-		int result=0;
-		String updateQuery="UPDATE EMPLOYEE_DETAILS SET PHONE_NUMBER=?, DEPARTMENT=? WHERE EMPLOYEE_ID=?";
-		
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(updateQuery))
-		{
+		int result = 0;
+		String updateQuery = "UPDATE EMPLOYEE_DETAILS SET PHONE_NUMBER=?, DEPARTMENT=? WHERE EMPLOYEE_ID=?";
+
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 			preparedStatement.setLong(1, phoneNumber);
-			preparedStatement.setString(2,department);
+			preparedStatement.setString(2, department);
 			preparedStatement.setInt(3, id);
 
-			result=preparedStatement.executeUpdate();
+			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
+	/*
+	 * used to delete the employee present in database using employee Id
+	 */
 	@Override
-	public int deleteEmployee(int employeeId)
-	{
-		int result=0;
-		String updateQuery="DELETE FROM EMPLOYEE_DETAILS WHERE EMPLOYEE_ID=?";
-		try(Connection connection = DatabaseConnection.getConnection();
-			PreparedStatement preparedStatment=connection.prepareStatement(updateQuery))
-		{
+	public int deleteEmployee(int employeeId) {
+		int result = 0;
+		String updateQuery = "DELETE FROM EMPLOYEE_DETAILS WHERE EMPLOYEE_ID=?";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatment = connection.prepareStatement(updateQuery)) {
 			preparedStatment.setInt(1, employeeId);
-			
-			result=preparedStatment.executeUpdate();
-			
+
+			result = preparedStatment.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
-	public Employee findEmployeeById(int employeeId)
-	{
-		Employee employee=null;
-		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE EMPLOYEE_ID=?";
-		try(Connection connection = DatabaseConnection.getConnection();
-				PreparedStatement preparedStatment=connection.prepareStatement(selectQuery))
-			{
-				preparedStatment.setInt(1, employeeId);
-				
-				ResultSet resultSet=preparedStatment.executeQuery();
-				
-				while(resultSet.next())
-				{
-					int id=resultSet.getInt(1);
-					String name=resultSet.getString(2);
-					String email=resultSet.getString(3);
-					long phoneNumber=resultSet.getLong(4);
-					String department=resultSet.getString(5);
-					double salary=resultSet.getLong(6);
-					LocalDate date=resultSet.getDate(7).toLocalDate();
-					LocalDateTime createdDate=resultSet.getTimestamp(8).toLocalDateTime();
-					
-					employee =new Employee(id,name,email,phoneNumber,department,salary,date,createdDate);
-				}
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
+
+	/*
+	 * used to identify and retrieve the employee using employeeId
+	 */
+	public Employee findEmployeeById(int employeeId) {
+		Employee employee = null;
+		String selectQuery = "SELECT * FROM EMPLOYEE_DETAILS WHERE EMPLOYEE_ID=?";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatment = connection.prepareStatement(selectQuery)) {
+			preparedStatment.setInt(1, employeeId);
+
+			ResultSet resultSet = preparedStatment.executeQuery();
+
+			while (resultSet.next()) {
+				int id = resultSet.getInt(1);
+				String name = resultSet.getString(2);
+				String email = resultSet.getString(3);
+				long phoneNumber = resultSet.getLong(4);
+				String department = resultSet.getString(5);
+				double salary = resultSet.getLong(6);
+				LocalDate date = resultSet.getDate(7).toLocalDate();
+				LocalDateTime createdDate = resultSet.getTimestamp(8).toLocalDateTime();
+
+				employee = new Employee(id, name, email, phoneNumber, department, salary, date, createdDate);
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return employee;
 	}
 
+	/*
+	 * Used to retrieve the all the employees present in the database
+	 */
 	@Override
 	public List<Employee> findAllEmployees() {
-		Employee employee=null;
-		List<Employee> employees=new ArrayList<>();
-		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS";
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
-		{
-			ResultSet resultSet=preparedStatement.executeQuery();
-			while(resultSet.next())
-			{
-				int id=resultSet.getInt(1);
-				String name=resultSet.getString(2);
-				String email=resultSet.getString(3);
-				long phoneNumber=resultSet.getLong(4);
-				String department=resultSet.getString(5);
-				double salary=resultSet.getLong(6);
-				LocalDate date=resultSet.getDate(7).toLocalDate();
-				LocalDateTime createdDate=resultSet.getTimestamp(8).toLocalDateTime();
-				
-				employee =new Employee(id,name,email,phoneNumber,department,salary,date,createdDate);
+		Employee employee = null;
+		List<Employee> employees = new ArrayList<>();
+		String selectQuery = "SELECT * FROM EMPLOYEE_DETAILS";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				int id = resultSet.getInt(1);
+				String name = resultSet.getString(2);
+				String email = resultSet.getString(3);
+				long phoneNumber = resultSet.getLong(4);
+				String department = resultSet.getString(5);
+				double salary = resultSet.getLong(6);
+				LocalDate date = resultSet.getDate(7).toLocalDate();
+				LocalDateTime createdDate = resultSet.getTimestamp(8).toLocalDateTime();
+
+				employee = new Employee(id, name, email, phoneNumber, department, salary, date, createdDate);
 				employees.add(employee);
 			}
 		} catch (SQLException e) {
@@ -142,113 +148,115 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return employees;
 	}
 
+	/*
+	 * used to identify and retrieve the employee based on the employee email
+	 */
 	@Override
 	public Employee findEmployeeByEmail(String employee_Email) {
-		Employee employee=null;
-		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE EMAIL=?";
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
-		{
+		Employee employee = null;
+		String selectQuery = "SELECT * FROM EMPLOYEE_DETAILS WHERE EMAIL=?";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
 			preparedStatement.setString(1, employee_Email);
-			
-			ResultSet resultSet=preparedStatement.executeQuery();
-			while(resultSet.next())
-			{
-				int id=resultSet.getInt(1);
-				String name=resultSet.getString(2);
-				String email=resultSet.getString(3);
-				long phoneNumber=resultSet.getLong(4);
-				String department=resultSet.getString(5);
-				double salary=resultSet.getLong(6);
-				LocalDate date=resultSet.getDate(7).toLocalDate();
-				LocalDateTime createdDate=resultSet.getTimestamp(8).toLocalDateTime();
-				
-				employee =new Employee(id,name,email,phoneNumber,department,salary,date,createdDate);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				int id = resultSet.getInt(1);
+				String name = resultSet.getString(2);
+				String email = resultSet.getString(3);
+				long phoneNumber = resultSet.getLong(4);
+				String department = resultSet.getString(5);
+				double salary = resultSet.getLong(6);
+				LocalDate date = resultSet.getDate(7).toLocalDate();
+				LocalDateTime createdDate = resultSet.getTimestamp(8).toLocalDateTime();
+
+				employee = new Employee(id, name, email, phoneNumber, department, salary, date, createdDate);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return employee;
 	}
-	
+
+	/*
+	 * used to identify the employee based on the department name
+	 */
 	@Override
 	public List<Employee> findEmployeeByDepartment(String employeeDepartment) {
-		Employee employee=null;
-		List<Employee> employees=new ArrayList<>();
-		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE TRIM(LOWER(DEPARTMENT)) LIKE ?";
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery);
-				)
-		{
-			preparedStatement.setString(1, "%"+employeeDepartment.toLowerCase().trim()+"%");
-			ResultSet resultSet=preparedStatement.executeQuery();
-			
-			while(resultSet.next())
-			{
-				int id=resultSet.getInt(1);
-				String name=resultSet.getString(2);
-				String email=resultSet.getString(3);
-				long phoneNumber=resultSet.getLong(4);
-				String department=resultSet.getString(5);
-				double salary=resultSet.getLong(6);
-				LocalDate date=resultSet.getDate(7).toLocalDate();
-				LocalDateTime createdDate=resultSet.getTimestamp(8).toLocalDateTime();
-				
-				employee =new Employee(id,name,email,phoneNumber,department,salary,date,createdDate);
+		Employee employee = null;
+		List<Employee> employees = new ArrayList<>();
+		String selectQuery = "SELECT * FROM EMPLOYEE_DETAILS WHERE TRIM(LOWER(DEPARTMENT)) LIKE ?";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery);) {
+			preparedStatement.setString(1, "%" + employeeDepartment.toLowerCase().trim() + "%");
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				int id = resultSet.getInt(1);
+				String name = resultSet.getString(2);
+				String email = resultSet.getString(3);
+				long phoneNumber = resultSet.getLong(4);
+				String department = resultSet.getString(5);
+				double salary = resultSet.getLong(6);
+				LocalDate date = resultSet.getDate(7).toLocalDate();
+				LocalDateTime createdDate = resultSet.getTimestamp(8).toLocalDateTime();
+
+				employee = new Employee(id, name, email, phoneNumber, department, salary, date, createdDate);
 				employees.add(employee);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-			
+
 		return employees;
 	}
-	
+
+	/*
+	 * used to identity the employees based on the salary range
+	 */
 	@Override
-	public List<Employee> findEmployeesBySalaryRange(double minSalary, double maxSalary)
-	{
-		Employee employee=null;
-		List<Employee> employees=new ArrayList<>();
- 		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE SALARY BETWEEN ? AND ?";
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareCall(selectQuery))
-		{
+	public List<Employee> findEmployeesBySalaryRange(double minSalary, double maxSalary) {
+		Employee employee = null;
+		List<Employee> employees = new ArrayList<>();
+		String selectQuery = "SELECT * FROM EMPLOYEE_DETAILS WHERE SALARY BETWEEN ? AND ?";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareCall(selectQuery)) {
 			preparedStatement.setDouble(1, minSalary);
 			preparedStatement.setDouble(2, maxSalary);
-			
-			ResultSet resultSet=preparedStatement.executeQuery();
-			while(resultSet.next())
-			{
-				int id=resultSet.getInt(1);
-				String name=resultSet.getString(2);
-				String email=resultSet.getString(3);
-				long phoneNumber=resultSet.getLong(4);
-				String department=resultSet.getString(5);
-				double salary=resultSet.getLong(6);
-				LocalDate date=resultSet.getDate(7).toLocalDate();
-				LocalDateTime createdDate=resultSet.getTimestamp(8).toLocalDateTime();
-				
-				employee =new Employee(id,name,email,phoneNumber,department,salary,date,createdDate);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				int id = resultSet.getInt(1);
+				String name = resultSet.getString(2);
+				String email = resultSet.getString(3);
+				long phoneNumber = resultSet.getLong(4);
+				String department = resultSet.getString(5);
+				double salary = resultSet.getLong(6);
+				LocalDate date = resultSet.getDate(7).toLocalDate();
+				LocalDateTime createdDate = resultSet.getTimestamp(8).toLocalDateTime();
+
+				employee = new Employee(id, name, email, phoneNumber, department, salary, date, createdDate);
 				employees.add(employee);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return employees;
 	}
 
+	/*
+	 * used to count the total employees present
+	 */
 	@Override
 	public int countEmployees() {
-		String selectQuery="SELECT COUNT(*) FROM EMPLOYEE_DETAILS";
-		int count=0;
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
-		{
-			ResultSet resultSet=preparedStatement.executeQuery();
-			while(resultSet.next())
-			{
-				count=resultSet.getInt(1);
+		String selectQuery = "SELECT COUNT(*) FROM EMPLOYEE_DETAILS";
+		int count = 0;
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				count = resultSet.getInt(1);
 			}
 
 		} catch (SQLException e) {
@@ -257,27 +265,29 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		return count;
 	}
 
+	/*
+	 * used to export the employees to file by identity the employee based on
+	 * provided Id
+	 */
 	@Override
 	public void exportEmployeesToFile(int employeeId) {
-		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE EMPLOYEE_ID=?";
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
-		{
+		String selectQuery = "SELECT * FROM EMPLOYEE_DETAILS WHERE EMPLOYEE_ID=?";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
 			preparedStatement.setInt(1, employeeId);
-			ResultSet resultSet=preparedStatement.executeQuery();
-			File file=new File("C:\\Users\\vinay\\JDBC\\EmployeeManagementSystem\\EmployeeDetails.txt");
-			FileWriter fileWriter=new FileWriter(file);
-			
-			while(resultSet.next())
-			{
-				fileWriter.write(" Employee id is\t\t\t: "+resultSet.getInt(1));
-				fileWriter.write("\n Employee name is\t\t\t:"+resultSet.getString(2));
-				fileWriter.write("\n Employee email is\t\t\t: "+resultSet.getString(3));
-				fileWriter.write("\n Employee phone is\t\t\t: "+resultSet.getString(4));
-				fileWriter.write("\n Employee department is\t: "+resultSet.getString(5));
-				fileWriter.write("\n Employee salary is\t\t\t: "+resultSet.getDouble(6));
-				fileWriter.write("\n Employee joined date is\t\t: "+resultSet.getDate(7).toLocalDate());
-				fileWriter.write("\n Employee created date is\t:"+resultSet.getTimestamp(8).toLocalDateTime());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			File file = new File("C:\\Users\\vinay\\JDBC\\EmployeeManagementSystem\\EmployeeDetails.txt");
+			FileWriter fileWriter = new FileWriter(file);
+
+			while (resultSet.next()) {
+				fileWriter.write(" Employee id is\t\t\t: " + resultSet.getInt(1));
+				fileWriter.write("\n Employee name is\t\t\t:" + resultSet.getString(2));
+				fileWriter.write("\n Employee email is\t\t\t: " + resultSet.getString(3));
+				fileWriter.write("\n Employee phone is\t\t\t: " + resultSet.getString(4));
+				fileWriter.write("\n Employee department is\t: " + resultSet.getString(5));
+				fileWriter.write("\n Employee salary is\t\t\t: " + resultSet.getDouble(6));
+				fileWriter.write("\n Employee joined date is\t\t: " + resultSet.getDate(7).toLocalDate());
+				fileWriter.write("\n Employee created date is\t:" + resultSet.getTimestamp(8).toLocalDateTime());
 			}
 			fileWriter.flush();
 			System.out.println("Data stored in file successfully");
@@ -287,27 +297,28 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		}
 	}
 
+	/*
+	 * used to export the department wise employee details
+	 */
 	@Override
 	public void exportEmployeesToFileByDepartment(String department) {
-		String selectQuery="SELECT * FROM EMPLOYEE_DETAILS WHERE TRIM(LOWER(DEPARTMENT)) LIKE ?";
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
-		{
-			preparedStatement.setString(1, "%"+department.trim().toLowerCase()+"%");
-			ResultSet resultSet=preparedStatement.executeQuery();
-			File file=new File("C:\\Users\\vinay\\JDBC\\EmployeeManagementSystem\\IT_Department.txt");
-			FileWriter fileWriter=new FileWriter(file);
-			
-			while(resultSet.next())
-			{
-				fileWriter.write(" Employee id is\t\t\t: "+resultSet.getInt(1));
-				fileWriter.write("\n Employee name is\t\t\t:"+resultSet.getString(2));
-				fileWriter.write("\n Employee email is\t\t\t: "+resultSet.getString(3));
-				fileWriter.write("\n Employee phone is\t\t\t: "+resultSet.getString(4));
-				fileWriter.write("\n Employee department is\t: "+resultSet.getString(5));
-				fileWriter.write("\n Employee salary is\t\t\t: "+resultSet.getDouble(6));
-				fileWriter.write("\n Employee joined date is\t\t: "+resultSet.getDate(7).toLocalDate());
-				fileWriter.write("\n Employee created date is\t:"+resultSet.getTimestamp(8).toLocalDateTime());
+		String selectQuery = "SELECT * FROM EMPLOYEE_DETAILS WHERE TRIM(LOWER(DEPARTMENT)) LIKE ?";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+			preparedStatement.setString(1, "%" + department.trim().toLowerCase() + "%");
+			ResultSet resultSet = preparedStatement.executeQuery();
+			File file = new File("C:\\Users\\vinay\\JDBC\\EmployeeManagementSystem\\IT_Department.txt");
+			FileWriter fileWriter = new FileWriter(file);
+
+			while (resultSet.next()) {
+				fileWriter.write(" Employee id is\t\t\t: " + resultSet.getInt(1));
+				fileWriter.write("\n Employee name is\t\t\t:" + resultSet.getString(2));
+				fileWriter.write("\n Employee email is\t\t\t: " + resultSet.getString(3));
+				fileWriter.write("\n Employee phone is\t\t\t: " + resultSet.getString(4));
+				fileWriter.write("\n Employee department is\t: " + resultSet.getString(5));
+				fileWriter.write("\n Employee salary is\t\t\t: " + resultSet.getDouble(6));
+				fileWriter.write("\n Employee joined date is\t\t: " + resultSet.getDate(7).toLocalDate());
+				fileWriter.write("\n Employee created date is\t:" + resultSet.getTimestamp(8).toLocalDateTime());
 				fileWriter.write("\n----------------------------------------------------------------------------\n");
 			}
 			fileWriter.flush();
@@ -316,106 +327,107 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
+	/*
+	 * used to display the employee statics like maxSalary,minSalary,avgSalary etc
+	 */
 	@Override
 	public Map<String, Double> employeeStatics() {
-		Map<String ,Double> map=new HashMap<>();
-		String query="SELECT COUNT(*),MAX(salary),MIN(salary),AVG(salary)FROM employee_details";
-		try(Connection connection=DatabaseConnection.getConnection();
-			PreparedStatement preparedStatement=connection.prepareStatement(query)
-			)
-		{
-			int employeeCount=0;
-			double maxSalary=0;
-			double minSalary=0;
-			double avgSalary=0;
-			ResultSet resultSet=preparedStatement.executeQuery();
-			
-			while(resultSet.next())
-			{
-				employeeCount=resultSet.getInt(1);
-				maxSalary=resultSet.getDouble(2);
-				minSalary=resultSet.getDouble(3);
-				avgSalary=resultSet.getDouble(4);
+		Map<String, Double> map = new HashMap<>();
+		String query = "SELECT COUNT(*),MAX(salary),MIN(salary),AVG(salary)FROM employee_details";
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			int employeeCount = 0;
+			double maxSalary = 0;
+			double minSalary = 0;
+			double avgSalary = 0;
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				employeeCount = resultSet.getInt(1);
+				maxSalary = resultSet.getDouble(2);
+				minSalary = resultSet.getDouble(3);
+				avgSalary = resultSet.getDouble(4);
 			}
 			map.put("employee count", (double) employeeCount);
 			map.put("maxSalary", maxSalary);
 			map.put("minSalary", minSalary);
 			map.put("avgSalary", avgSalary);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return map;
 	}
 
-	public Map<String ,Integer> getEmployeeCountByDepartment(Connection connection) {
-		Map<String ,Integer> map=new HashMap<>();
-		String selectQuery="SELECT DEPARTMENT,COUNT(*) FROM EMPLOYEE_DETAILS GROUP BY DEPARTMENT";
-		try(PreparedStatement preparedStatement=connection.prepareStatement(selectQuery))
-		{
-			ResultSet resultSet=preparedStatement.executeQuery();
-		
-			while(resultSet.next())
-		    {
-		        map.put(resultSet.getString(1), resultSet.getInt(2));
-		    }
+	/*
+	 * used for getting the employee count based on the department
+	 */
+	public Map<String, Integer> getEmployeeCountByDepartment(Connection connection) {
+		Map<String, Integer> map = new HashMap<>();
+		String selectQuery = "SELECT DEPARTMENT,COUNT(*) FROM EMPLOYEE_DETAILS GROUP BY DEPARTMENT";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				map.put(resultSet.getString(1), resultSet.getInt(2));
+			}
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return map;
 	}
-	
+
+	/*
+	 * used to save the employees by importing the data from csv file
+	 */
 	@Override
 	public int saveEmployeesBatch(List<Employee> employees) {
 
 		String insertQuery = """
-			    INSERT INTO EMPLOYEE_DETAILS
-			    (employee_id, employee_name, email, phone_number,
-			     department, salary, joining_date, created_date)
-			    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-			    """;
+				INSERT INTO EMPLOYEE_DETAILS
+				(employee_id, employee_name, email, phone_number,
+				 department, salary, joining_date, created_date)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+				""";
 
-	    try (Connection connection = DatabaseConnection.getConnection();
-	         PreparedStatement ps = connection.prepareStatement(insertQuery)) {
+		try (Connection connection = DatabaseConnection.getConnection();
+				PreparedStatement ps = connection.prepareStatement(insertQuery)) {
 
-	        connection.setAutoCommit(false);
+			connection.setAutoCommit(false);
 
-	        try {
-	            for (Employee employee : employees) {
+			try {
+				for (Employee employee : employees) {
 
-	                ps.setInt(1, employee.getEmployeeId());
-	                ps.setString(2, employee.getEmployeeName());
-	                ps.setString(3, employee.getEmail());
-	                ps.setLong(4, employee.getPhoneNumber());
-	                ps.setString(5, employee.getDepartment());
-	                ps.setDouble(6, employee.getSalary());
+					ps.setInt(1, employee.getEmployeeId());
+					ps.setString(2, employee.getEmployeeName());
+					ps.setString(3, employee.getEmail());
+					ps.setLong(4, employee.getPhoneNumber());
+					ps.setString(5, employee.getDepartment());
+					ps.setDouble(6, employee.getSalary());
 
-	                ps.setDate(7,
-	                    java.sql.Date.valueOf(employee.getJoiningDate()));
+					ps.setDate(7, java.sql.Date.valueOf(employee.getJoiningDate()));
 
-	                ps.setTimestamp(8,
-	                    java.sql.Timestamp.valueOf(employee.getCreatedDate()));
+					ps.setTimestamp(8, java.sql.Timestamp.valueOf(employee.getCreatedDate()));
 
-	                ps.addBatch();
-	            }
+					ps.addBatch();
+				}
 
-	            ps.executeBatch();
-	            connection.commit();
+				ps.executeBatch();
+				connection.commit();
 
-	            return employees.size();
+				return employees.size();
 
-	        } catch (SQLException e) {
-	            connection.rollback();
-	            throw e;
-	        }
+			} catch (SQLException e) {
+				connection.rollback();
+				throw e;
+			}
 
-	    } catch (SQLException e) {
-	        throw new RuntimeException("Failed to import employees", e);
-	    }
+		} catch (SQLException e) {
+			throw new RuntimeException("Failed to import employees", e);
+		}
 	}
 }
