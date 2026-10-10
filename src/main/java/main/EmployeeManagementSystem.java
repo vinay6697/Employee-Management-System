@@ -185,17 +185,27 @@ public class EmployeeManagementSystem {
 			}
 			case 12: {
 				Map<String, Double> employees = employeeService.employeeStatics();
-				for (String employee : employees.keySet()) {
-					System.out.println(employee + "\t" + employees.get(employee));
+				if(employees!=null)
+				{
+					for (String employee : employees.keySet()) {
+						System.out.println(employee + "\t" + employees.get(employee));
+					}
 				}
+				else
+					System.out.println("Something went wrong");
 				break;
 			}
 			case 13: {
 				Map<String, Integer> employees = employeeService.getEmployeeCountByDepartment();
 
-				for (String department : employees.keySet()) {
-					System.out.printf("%-25s : %d%n", department, employees.get(department));
+				if(employees!=null)
+				{
+					for (String department : employees.keySet()) {
+						System.out.printf("%-25s : %d%n", department, employees.get(department));
+					}
 				}
+				else
+					System.out.println("No employee data found");
 				break;
 			}
 			case 14: {

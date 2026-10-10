@@ -100,11 +100,15 @@ public class EmployeeService {
 	}
 
 	public Map<String, Double> employeeStatics() {
-		return dao.employeeStatics();
+		return dao.employeeStatics()!=null?dao.employeeStatics():null;
 	}
 
 	public Map<String, Integer> getEmployeeCountByDepartment() {
-		return dao.getEmployeeCountByDepartment(DatabaseConnection.getConnection());
+		if(dao.getEmployeeCountByDepartment(DatabaseConnection.getConnection())!=null)
+			return dao.getEmployeeCountByDepartment(DatabaseConnection.getConnection());
+		else
+			return null;
+				
 	}
 
 	// importing the employees from csv file
