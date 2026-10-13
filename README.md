@@ -1,12 +1,12 @@
 # Employee Management System
 
-## 📌 Project Overview
+##  Project Overview
 
 The **Employee Management System** is a Java-based application developed using JDBC and PostgreSQL to manage employee records efficiently. It follows a layered architecture to separate business logic, database operations, and application interaction.
 
 The project demonstrates practical implementation of CRUD operations, SQL queries, file handling, JDBC batch processing, and employee statistics.
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 - **Programming Language:** Java
 - **Database:** PostgreSQL
@@ -14,7 +14,7 @@ The project demonstrates practical implementation of CRUD operations, SQL querie
 - **IDE:** Eclipse
 - **Version Control:** Git and GitHub
 
-## ✨ Features
+##  Features
 
 ### 1. Employee Management
 - Add new employee records.
@@ -74,7 +74,7 @@ EmployeeManagementSystem/
 
 *Note: Adjust the package and file names above to match your actual project structure.*
 
-## 🗄️ Employee Data Model
+##  Employee Data Model
 
 The Employee class contains the following fields:
 
@@ -89,7 +89,7 @@ The Employee class contains the following fields:
 | joiningDate | LocalDate | Employee joining date |
 | createdDate | LocalDateTime | Record creation timestamp |
 
-## ⚙️ Database Configuration
+##  Database Configuration
 
 ### Prerequisites
 
@@ -123,7 +123,7 @@ employee_id,employee_name,email,phone_number,department,salary,joining_date,crea
 
 The CSV column order and date formats must match the import implementation. Use employee IDs that do not already exist in the database.
 
-## 🎯 Learning Outcomes
+##  Learning Outcomes
 
 Through this project, I practised:
 
@@ -138,14 +138,14 @@ Through this project, I practised:
 - PostgreSQL database integration.
 - Git and GitHub version control.
 
-## 🚀 Future Enhancements
+##  Future Enhancements
 
 - Add a graphical user interface or REST API using Spring Boot.
 - Introduce pagination for employee listings.
 - Add advanced input validation and centralized exception handling.
 - Generate employee reports in additional formats.
 
-## 👨‍💻 Author
+##  Author
 
 **Vinay**
 
